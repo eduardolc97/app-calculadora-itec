@@ -1,0 +1,24 @@
+services:
+  apache:
+    container_name: phpItec
+    restart: always
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - '80:80'
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - mysqldb
+    links:
+      - mysqldb   
+
+  mysqldb:
+    container_name: mysqlItec
+    image: mysql:5.7
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root  
